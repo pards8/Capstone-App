@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          'Hello, Flutter!',
+          'Hello, WORLD!',
           style: TextStyle(fontSize: 24),
         ),
       ),
