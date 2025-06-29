@@ -69,7 +69,7 @@ class RegistrationScreen extends StatelessWidget {
     const SizedBox(height: 20),
     // Email Label and Field
     const Text(
-    'Email Address',
+    'Email Addressss',
     style: TextStyle(color: Colors.white, fontSize: 20),
     ),
     const SizedBox(height: 8),
