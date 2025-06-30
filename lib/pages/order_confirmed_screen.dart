@@ -56,7 +56,7 @@ class OrderConfirmedScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 12),
                     Text(
-                      "The restaurant is preparing your meal. You can track your order in real-time within the app.",
+                      "The restaurant is preparingg your meal. You can track your order in real-time within the app.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
