@@ -40,7 +40,7 @@ class RegistrationScreen extends StatelessWidget {
     child: Column(
     children: const [
     Text(
-    'Registration',
+    'Registrations',
     style: TextStyle(
     fontSize: 35,
     fontWeight: FontWeight.bold,
