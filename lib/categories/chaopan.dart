@@ -10,6 +10,6 @@ final List<Map<String, String>> chaopanItems = [
   },
   {
     'code': 'CSIE',
-    'description': 'Chaopan Sisig Egg',
+    'description': 'Chaopan Sisig Egggg',
   },
 ];
