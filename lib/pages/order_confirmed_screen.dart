@@ -1,4 +1,6 @@
+import 'package:capstone_proj/category_page.dart';
 import 'package:flutter/material.dart';
+
 
 class OrderConfirmedScreen extends StatelessWidget {
   const OrderConfirmedScreen({super.key});
@@ -6,27 +8,27 @@ class OrderConfirmedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2C261), // Yellow background
+      backgroundColor: const Color(0xFFF2C261),
       body: SafeArea(
         child: Column(
           children: [
-            // Back Button
+            // Back button
             Padding(
               padding: const EdgeInsets.only(left: 8.0, top: 8.0),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back, size: 28, color: Colors.black),
+                  icon: const Icon(Icons.arrow_back, size: 28),
                   onPressed: () {
-                    Navigator.pop(context); // Go back
+                    Navigator.pop(context);
                   },
                 ),
               ),
             ),
 
-            const SizedBox(height: 100),
+            const Spacer(),
 
-            // Centered Card with Text
+            // Confirmation Card
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Container(
@@ -43,9 +45,10 @@ class OrderConfirmedScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
+                child: Column(
+                  children: const [
+                    Icon(Icons.check_circle, size: 60, color: Colors.green),
+                    SizedBox(height: 12),
                     Text(
                       "ORDER CONFIRMED",
                       style: TextStyle(
@@ -56,7 +59,7 @@ class OrderConfirmedScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 12),
                     Text(
-                      "The restaurant is preparingg your meal. You can track your order in real-time within the app.",
+                      "The restaurant is preparing your meal. You can track your order in real-time within the app",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
@@ -64,6 +67,36 @@ class OrderConfirmedScreen extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+            ),
+
+            const Spacer(),
+
+            // Back to Home Button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const CategoryPage()),
+                          (Route<dynamic> route) => false,
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.brown,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    "Back to Home",
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
                 ),
               ),
             ),
