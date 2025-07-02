@@ -7,7 +7,7 @@ final List<Map<String, String>> snacksItems = [
   },
   {
     'code': 'SNCK2',
-    'description': 'Burger & Fries',
+    'description': 'Burger & frays',
   },
   {
     'code': 'SNCK3',
