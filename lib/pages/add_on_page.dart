@@ -86,7 +86,7 @@ class _AddOnPageState extends State<AddOnPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Chaopan Cordon Bleu",
+                        Text("Chaopan Cordon Blue",
                             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                         SizedBox(height: 4),
                         Text("₱130.00",
