@@ -6,6 +6,7 @@ import 'categories/platter.dart';
 import 'pages/profile_page.dart';
 import 'pages/address_page.dart';
 import 'pages/logout_page.dart';
+import 'pages/add_on_page.dart'; // Make sure this path is correct
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -73,16 +74,14 @@ class _CategoryPageState extends State<CategoryPage> {
                 leading: const Icon(Icons.restaurant_menu),
                 title: const Text("Menu"),
                 onTap: () {
-                  Navigator.pop(context); // close drawer
+                  Navigator.pop(context);
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (_) => const CategoryPage()),
-                        (route) => false, // remove all previous routes
+                        (route) => false,
                   );
                 },
               ),
-
-
               ListTile(
                 leading: const Icon(Icons.person),
                 title: const Text("Profile"),
@@ -94,7 +93,6 @@ class _CategoryPageState extends State<CategoryPage> {
                   );
                 },
               ),
-
               ListTile(
                 leading: const Icon(Icons.location_on),
                 title: const Text("Address"),
@@ -124,8 +122,8 @@ class _CategoryPageState extends State<CategoryPage> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pop(context); // close dialog
-                            Navigator.pop(context); // close drawer
+                            Navigator.pop(context);
+                            Navigator.pop(context);
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(builder: (_) => const LogoutPage()),
@@ -138,8 +136,6 @@ class _CategoryPageState extends State<CategoryPage> {
                   );
                 },
               ),
-
-
             ],
           ),
         ),
@@ -242,24 +238,33 @@ class _CategoryPageState extends State<CategoryPage> {
                             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                           ),
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: Text(item['code']!),
-                                content: Text(item['description']!),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text('Close'),
-                                  ),
-                                ],
-                              ),
-                            );
+                            if (selectedCategory == 'Bilao') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const AddOnPage()),
+                              );
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text(item['code'] ?? ''),
+                                  content: Text(item['description'] ?? ''),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text('Close'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                           },
                           child: const Text(
                             "More",
-                            style: TextStyle(color: Colors.white,
-                            fontWeight:FontWeight.bold),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
