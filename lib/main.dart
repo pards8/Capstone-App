@@ -1,3 +1,4 @@
+import 'package:capstone_proj/category_page.dart';
 import 'package:capstone_proj/pages/myorders.dart';
 import 'package:flutter/material.dart';
 import 'pages/REGISTER.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MyOrderPage(),
+      home: const CategoryPage(),
     );
   }
 }
