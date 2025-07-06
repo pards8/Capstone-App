@@ -1,4 +1,5 @@
 import 'package:capstone_proj/category_page.dart';
+import 'package:capstone_proj/pages/add_on_page.dart';
 import 'package:capstone_proj/pages/cart_page.dart';
 import 'package:capstone_proj/pages/checkout.dart';
 import 'package:capstone_proj/pages/myorders.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const CheckoutPage(),
+      home: const AddOnPage(),
     );
   }
 }
