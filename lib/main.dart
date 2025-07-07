@@ -1,5 +1,9 @@
 import 'package:capstone_proj/category_page.dart';
+
 import 'package:capstone_proj/pages/add_on_page.dart';
+
+import 'package:capstone_proj/pages/ModeOfOrder.dart';
+
 import 'package:capstone_proj/pages/cart_page.dart';
 import 'package:capstone_proj/pages/checkout.dart';
 import 'package:capstone_proj/pages/myorders.dart';
@@ -20,6 +24,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const AddOnPage(),
+      home: const ModeOfOrderScreen(),
+
     );
   }
 }
