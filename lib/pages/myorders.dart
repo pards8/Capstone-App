@@ -64,7 +64,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
                       child: Text(
                         'My Orders',
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 24,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
                         ),
