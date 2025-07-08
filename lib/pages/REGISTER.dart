@@ -61,7 +61,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             buildPasswordField(),
             const SizedBox(height: 30),
 
-            // ✅ Register Button
+
             Center(
               child: ElevatedButton(
                 onPressed: () {
