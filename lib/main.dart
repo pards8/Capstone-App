@@ -2,6 +2,7 @@ import 'package:capstone_proj/category_page.dart';
 import 'package:capstone_proj/pages/ModeOfOrder.dart';
 import 'package:capstone_proj/pages/cart_page.dart';
 import 'package:capstone_proj/pages/checkout.dart';
+import 'package:capstone_proj/pages/order_to_deliver_page.dart';
 import 'package:capstone_proj/pages/myorders.dart';
 import 'package:flutter/material.dart';
 import 'pages/REGISTER.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const ModeOfOrderScreen(),
+      home: const OrderToDeliverPage(),
     );
   }
 }
