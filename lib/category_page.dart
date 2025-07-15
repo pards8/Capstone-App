@@ -6,7 +6,7 @@ import 'categories/platter.dart';
 import 'pages/profile_page.dart';
 import 'pages/address_page.dart';
 import 'pages/logout_page.dart';
-import 'pages/add_on_page.dart'; // Make sure this path is correct
+import 'pages/add_on_page.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
