@@ -122,7 +122,7 @@ class AddressPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                 ),
                 onPressed: () {},
-                child: const Text("Save Address"),
+                child: const Text("Save"),
               ),
             ),
           ],
