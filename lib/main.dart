@@ -10,6 +10,7 @@ import 'pages/REGISTER.dart';
 import 'pages/order_confirmed_screen.dart';
 import 'pages/Login.dart';
 import 'package:capstone_proj/Del_Login/Del_Login.dart' as delivery_login;
+import 'package:capstone_proj/pages/address_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,11 +23,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
- master
+
       home: const CartPage(),
 
       home: const MyOrderPage(),
  Myorderfix
+
+      home: const AddressPage(),
+ Del_Login
 
     );
   }
