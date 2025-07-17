@@ -6,7 +6,12 @@ import 'categories/platter.dart';
 import 'pages/profile_page.dart';
 import 'pages/address_page.dart';
 import 'pages/logout_page.dart';
+
+import 'pages/add_on_page.dart'; // Make sure this path is correct
+import 'package:capstone_proj/pages/myorders.dart';
+
 import 'pages/add_on_page.dart';
+ Del_Login
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -157,16 +162,42 @@ class _CategoryPageState extends State<CategoryPage> {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("Categories", style: TextStyle(fontWeight: FontWeight.bold)),
-                Text("Track Order", style: TextStyle(fontWeight: FontWeight.bold)),
+                GestureDetector(
+                  onTap: () {
+                    // Already on Categories
+                  },
+                  child: const Text(
+                    "Categories",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red, // Highlight current tab
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const MyOrderPage()),
+                    );
+                  },
+                  child: const Text(
+                    "Track Order",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
+
           Container(
             color: const Color(0xFFD9B56B),
             padding: const EdgeInsets.symmetric(vertical: 8),

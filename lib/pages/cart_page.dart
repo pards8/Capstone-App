@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/cart_item_card.dart';
-import 'checkout.dart'; // Adjust path if needed
+import 'ModeOfOrder.dart'; // Adjust path if needed
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -157,7 +157,7 @@ class _CartPageState extends State<CartPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const CheckoutPage(),
+                      builder: (context) => const ModeOfOrderScreen(),
                     ),
                   );
                 },

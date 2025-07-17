@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:capstone_proj/category_page.dart';
 
 class MyOrderPage extends StatefulWidget {
   const MyOrderPage({super.key});
@@ -73,11 +74,11 @@ class _MyOrderPageState extends State<MyOrderPage> {
 
                     const SizedBox(height: 16),
 
-                    // Order Card with dots and vertical line
+                    // Order Card with fixed height and evenly spaced steps
                     Center(
                       child: Container(
                         width: 320,
-                        height: 360,
+                        height: 360, // <-- Fixed height here
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -85,25 +86,25 @@ class _MyOrderPageState extends State<MyOrderPage> {
                         ),
                         child: Stack(
                           children: [
-                            // Vertical line
+                            // Vertical line from first dot to last dot
                             Positioned(
                               left: 70 + 8 + 8,
-                              top: 24,
-                              bottom: 24,
+                              top: 16 + 10,
+                              bottom: 16 + 10,
                               child: Container(
                                 width: 4,
                                 color: Colors.black,
                               ),
                             ),
 
-                            // Time + Dot Rows
+                            // Evenly spaced steps
                             Column(
-                              children: const [
-                                Expanded(child: _TimeDotRow(time: '10:20 AM', dotColor: Colors.green)),
-                                Expanded(child: _TimeDotRow(time: '10:25 AM')),
-                                Expanded(child: _TimeDotRow(time: '10:40 AM')),
-                                Expanded(child: _TimeDotRow(time: '10:45 AM')),
-                                Expanded(child: _TimeDotRow(time: '10:50 AM')),
+                              children: [
+                                Expanded(child: _buildOrderStep('10:20 AM', 'Order Placed', dotColor: Colors.green)),
+                                Expanded(child: _buildOrderStep('10:20 AM', 'Order is Being Prepared')),
+                                Expanded(child: _buildOrderStep('10:40 AM', 'Order Packed')),
+                                Expanded(child: _buildOrderStep('10:45 AM', 'Rider is on the Way')),
+                                Expanded(child: _buildOrderStep('10:50 AM', 'Order Delivered')),
                               ],
                             ),
                           ],
@@ -114,19 +115,55 @@ class _MyOrderPageState extends State<MyOrderPage> {
                 ),
               ),
             ),
+
+            // Back Button
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const CategoryPage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF8B1A1A),
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 4,
+                  ),
+                  child: const Text(
+                    'Back to Menu',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
+  // ✅ This is the only part you asked to change
   Widget _buildTab(String title) {
     bool isActive = activeTab == title;
+
     return GestureDetector(
       onTap: () {
-        setState(() {
-          activeTab = title;
-        });
+        if (title == 'Categories') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const CategoryPage()),
+          );
+        } else {
+          setState(() {
+            activeTab = title;
+          });
+        }
       },
       child: Text(
         title,
@@ -138,43 +175,45 @@ class _MyOrderPageState extends State<MyOrderPage> {
       ),
     );
   }
-}
 
-
-class _TimeDotRow extends StatelessWidget {
-  final String time;
-  final Color dotColor;
-
-  const _TimeDotRow({
-    required this.time,
-    this.dotColor = Colors.blue, // default to blue
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        // Time
-        SizedBox(
-          width: 70,
-          child: Text(
-            time,
-            style: const TextStyle(fontSize: 13, color: Colors.black),
-            textAlign: TextAlign.right,
+  Widget _buildOrderStep(String time, String label, {Color dotColor = Colors.blue}) {
+    return Padding(
+      padding: EdgeInsets.zero,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Time
+          SizedBox(
+            width: 70,
+            child: Text(
+              time,
+              style: const TextStyle(fontSize: 13, color: Colors.black),
+              textAlign: TextAlign.right,
+            ),
           ),
-        ),
-        const SizedBox(width: 8),
-        // Dot
-        Container(
-          width: 16,
-          height: 16,
-          decoration: BoxDecoration(
-            color: dotColor,
-            shape: BoxShape.circle,
+          const SizedBox(width: 8.0),
+          // Dot
+          Container(
+            width: 16,
+            height: 16,
+            decoration: BoxDecoration(
+              color: dotColor,
+              shape: BoxShape.circle,
+            ),
           ),
-        ),
-      ],
+          const SizedBox(width: 8.0),
+          // Label
+          Expanded(
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
