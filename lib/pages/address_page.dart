@@ -43,7 +43,7 @@ class AddressPage extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (_) => const CategoryPage()),
-                        (route) => false, // remove all previous routes
+                        (route) => false,
                   );
                 },
               ),
@@ -109,10 +109,10 @@ class AddressPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            _buildTextField(label: "House No. / Street"),
-            _buildTextField(label: "Barangay"),
-            _buildTextField(label: "City/Municipality"),
             _buildTextField(label: "Province"),
+            _buildTextField(label: "City/Municipality"),
+            _buildTextField(label: "Barangay"),
+            _buildTextField(label: "House No. / Street/ Purok"),
 
             const SizedBox(height: 20),
             Center(
@@ -122,7 +122,7 @@ class AddressPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                 ),
                 onPressed: () {},
-                child: const Text("Save Address"),
+                child: const Text("Save"),
               ),
             ),
           ],

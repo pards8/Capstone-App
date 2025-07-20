@@ -23,10 +23,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const DeliveryInterface(),
+<<<<<<< HEAD
 
+=======
+>>>>>>> b8b37def3c6fcbdc4cffda748107884715e8b508
     );
   }
 }
-
-
-
