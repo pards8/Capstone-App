@@ -11,7 +11,6 @@ import 'pages/add_on_page.dart'; // Make sure this path is correct
 import 'package:capstone_proj/pages/myorders.dart';
 
 import 'pages/add_on_page.dart';
- Del_Login
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -54,10 +53,7 @@ class _CategoryPageState extends State<CategoryPage> {
           backgroundColor: const Color(0xFFD9B56B),
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: Image.asset(
-              'asset/logo.png',
-              height: 45,
-            ),
+            child: Image.asset('asset/logo.png', height: 45),
           ),
           centerTitle: true,
           actions: [
@@ -83,7 +79,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (_) => const CategoryPage()),
-                        (route) => false,
+                    (route) => false,
                   );
                 },
               ),
@@ -113,7 +109,10 @@ class _CategoryPageState extends State<CategoryPage> {
               const Divider(thickness: 1),
               ListTile(
                 leading: const Icon(Icons.logout, color: Colors.red),
-                title: const Text("Logout", style: TextStyle(color: Colors.red)),
+                title: const Text(
+                  "Logout",
+                  style: TextStyle(color: Colors.red),
+                ),
                 onTap: () {
                   showDialog(
                     context: context,
@@ -131,7 +130,9 @@ class _CategoryPageState extends State<CategoryPage> {
                             Navigator.pop(context);
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (_) => const LogoutPage()),
+                              MaterialPageRoute(
+                                builder: (_) => const LogoutPage(),
+                              ),
                             );
                           },
                           child: const Text('Logout'),
@@ -216,7 +217,10 @@ class _CategoryPageState extends State<CategoryPage> {
                         ? const Color(0xFFF8E3AD)
                         : Colors.transparent,
                     foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                   ),
                   child: Text(category),
                 );
@@ -242,7 +246,10 @@ class _CategoryPageState extends State<CategoryPage> {
                       children: [
                         Text(
                           item['code'] ?? '',
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                         const SizedBox(height: 5),
                         Text(
@@ -266,13 +273,18 @@ class _CategoryPageState extends State<CategoryPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 12,
+                            ),
                           ),
                           onPressed: () {
                             if (selectedCategory == 'Bilao') {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (_) => const AddOnPage()),
+                                MaterialPageRoute(
+                                  builder: (_) => const AddOnPage(),
+                                ),
                               );
                             } else {
                               showDialog(
