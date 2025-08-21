@@ -1,5 +1,5 @@
 name: capstone_proj
-description: "A new Flutter project."
+description: "Capstone Food Ordering App - A comprehensive food delivery application with user authentication, menu browsing, and order management."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -28,12 +28,14 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  http: ^1.2.2
   flutter:
     sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -59,8 +61,8 @@ flutter:
   assets:
     - asset/logo.jpg
     - asset/logo.png
-    - asset/chaopan.png
     - asset/qr_code.png
+    - asset/chaopnapics/
 
 
 

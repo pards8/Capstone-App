@@ -75,7 +75,7 @@ class _AddOnPageState extends State<AddOnPage> {
                   ClipRRect(
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
                     child: Image.asset(
-                      'asset/chaopan.png', // Make sure this path is correct
+                      'asset/chaopnapics/chaocordon.jpg', // Using the cordon bleu image
                       height: 140,
                       width: double.infinity,
                       fit: BoxFit.cover,
