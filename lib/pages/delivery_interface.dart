@@ -14,7 +14,12 @@ class DeliveryInterface extends StatefulWidget {
 }
 
 class _DeliveryInterfaceState extends State<DeliveryInterface> {
-  int selectedTab = 0; // 0 = Order to Deliver, 1 = Ongoing Deliveries
+  int selectedTab = 0;
+
+  Map<int, List<bool>> orderStatuses = {
+    6969: [true, true, false, false],
+    6968: [true, false, false, false],
+  };
 
   final orders = [
     Order(
@@ -58,10 +63,7 @@ class _DeliveryInterfaceState extends State<DeliveryInterface> {
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(1),
-            child: Container(
-              height: 1,
-              color: Colors.black.withOpacity(.2),
-            ),
+            child: Container(height: 1, color: Colors.black.withOpacity(.2)),
           ),
         ),
       ),
@@ -87,7 +89,13 @@ class _DeliveryInterfaceState extends State<DeliveryInterface> {
                 separatorBuilder: (_, __) => const SizedBox(height: 20),
                 itemBuilder: (context, index) {
                   return selectedTab == 0
-                      ? OrderCard(order: orders[index])
+                      ? OrderCard(
+                          order: orders[index],
+                          onStatusPressed: () => _showOrderStatusModal(
+                            context,
+                            orders[index].number,
+                          ),
+                        )
                       : OngoingOrderCard(order: orders[index]);
                 },
               ),
@@ -126,6 +134,178 @@ class _DeliveryInterfaceState extends State<DeliveryInterface> {
     );
   }
 
+  void _showOrderStatusModal(BuildContext context, int orderNumber) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: StatefulBuilder(
+            builder: (context, setModalState) {
+              orderStatuses.putIfAbsent(
+                orderNumber,
+                () => [false, false, false, false],
+              );
+
+              return Container(
+                width: MediaQuery.of(context).size.width * 0.85,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF5C3B24),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12),
+                        ),
+                      ),
+                      child: const Text(
+                        'Order Status',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            left: 25,
+                            top: 0,
+                            bottom: 0,
+                            child: Container(width: 2, color: Colors.black),
+                          ),
+                          Column(
+                            children: [
+                              _buildTimelineCheckboxItem(
+                                context,
+                                modalSetState: setModalState,
+                                label: '10:20 AM Order Placed',
+                                orderNumber: orderNumber,
+                                index: 0,
+                                isCurrent: false,
+                              ),
+                              _buildTimelineCheckboxItem(
+                                context,
+                                modalSetState: setModalState,
+                                label: '10:20 AM Order is Being Prepared',
+                                orderNumber: orderNumber,
+                                index: 1,
+                                isCurrent: true,
+                              ),
+                              _buildTimelineCheckboxItem(
+                                context,
+                                modalSetState: setModalState,
+                                label:
+                                    '10:40 AM Order Packed Rider is on the Way',
+                                orderNumber: orderNumber,
+                                index: 2,
+                                isCurrent: false,
+                              ),
+                              _buildTimelineCheckboxItem(
+                                context,
+                                modalSetState: setModalState,
+                                label: '10:45 AM Order Delivered',
+                                orderNumber: orderNumber,
+                                index: 3,
+                                isCurrent: false,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF5C3B24),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text('Update'),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildTimelineCheckboxItem(
+    BuildContext context, {
+    required StateSetter modalSetState,
+    required String label,
+    required int orderNumber,
+    required int index,
+    required bool isCurrent,
+  }) {
+    orderStatuses.putIfAbsent(orderNumber, () => [false, false, false, false]);
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 50,
+            child: Checkbox(
+              value: orderStatuses[orderNumber]![index],
+              onChanged: (bool? value) {
+                modalSetState(() {
+                  orderStatuses[orderNumber]![index] = value ?? false;
+                });
+                setState(() {});
+              },
+              activeColor: const Color(0xFF5C3B24),
+              checkColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: isCurrent
+                    ? Colors.blue.withOpacity(0.1)
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Drawer _buildDrawer(BuildContext context) {
     return Drawer(
       backgroundColor: Colors.white,
@@ -140,7 +320,7 @@ class _DeliveryInterfaceState extends State<DeliveryInterface> {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (_) => const CategoryPage()),
-                      (route) => false,
+                  (route) => false,
                 );
               },
             ),
@@ -188,7 +368,9 @@ class _DeliveryInterfaceState extends State<DeliveryInterface> {
                           Navigator.pop(context);
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (_) => const LogoutPage()),
+                            MaterialPageRoute(
+                              builder: (_) => const LogoutPage(),
+                            ),
                           );
                         },
                         child: const Text('Logout'),
@@ -205,11 +387,14 @@ class _DeliveryInterfaceState extends State<DeliveryInterface> {
   }
 }
 
-// ─────────────────── OrderCard (ORDER TO DELIVER) ───────────────────
-
 class OrderCard extends StatelessWidget {
-  const OrderCard({super.key, required this.order});
+  const OrderCard({
+    super.key,
+    required this.order,
+    required this.onStatusPressed,
+  });
   final Order order;
+  final VoidCallback onStatusPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +430,10 @@ class OrderCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _InfoRow(icon: Icons.assignment, text: 'Order No. #${order.number}'),
+                _InfoRow(
+                  icon: Icons.assignment,
+                  text: 'Order No. #${order.number}',
+                ),
                 _InfoRow(icon: Icons.location_on, text: order.address),
                 _InfoRow(icon: Icons.list_alt, text: 'Items: ${order.items}'),
                 _InfoRow(icon: Icons.schedule, text: 'Time: ${order.time}'),
@@ -267,7 +455,7 @@ class OrderCard extends StatelessWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: onStatusPressed,
                         icon: const Icon(Icons.info_outline),
                         label: const Text('Status'),
                         style: ElevatedButton.styleFrom(
@@ -286,8 +474,6 @@ class OrderCard extends StatelessWidget {
     );
   }
 }
-
-// ─────────────── OngoingOrderCard (ONGOING DELIVERIES) ───────────────
 
 class OngoingOrderCard extends StatelessWidget {
   const OngoingOrderCard({super.key, required this.order});
@@ -324,13 +510,18 @@ class OngoingOrderCard extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               decoration: const BoxDecoration(
                 color: Color(0xFFEFEFEF),
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(12),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _InfoRow(icon: Icons.person, text: 'Name: John Doe'),
-                  _InfoRow(icon: Icons.location_on, text: 'Address: ${order.address}'),
+                  _InfoRow(
+                    icon: Icons.location_on,
+                    text: 'Address: ${order.address}',
+                  ),
                   _InfoRow(icon: Icons.list_alt, text: 'Items: ${order.items}'),
                   _InfoRow(icon: Icons.schedule, text: 'Time: ${order.time}'),
                   _InfoRow(icon: Icons.phone, text: 'Phone: ${order.phone}'),
@@ -368,8 +559,6 @@ class OngoingOrderCard extends StatelessWidget {
   }
 }
 
-// ─────────────── Shared Widgets ───────────────
-
 class _InfoRow extends StatelessWidget {
   const _InfoRow({required this.icon, required this.text});
   final IconData icon;
@@ -384,12 +573,7 @@ class _InfoRow extends StatelessWidget {
         children: [
           Icon(icon, size: 18, color: Colors.black54),
           const SizedBox(width: 6),
-          Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(fontSize: 14),
-            ),
-          ),
+          Expanded(child: Text(text, style: const TextStyle(fontSize: 14))),
         ],
       ),
     );
@@ -423,8 +607,6 @@ class _HomeButton extends StatelessWidget {
     );
   }
 }
-
-// ─────────────── Order Model ───────────────
 
 class Order {
   final int number;

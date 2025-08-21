@@ -6,7 +6,11 @@ import 'categories/platter.dart';
 import 'pages/profile_page.dart';
 import 'pages/address_page.dart';
 import 'pages/logout_page.dart';
+
 import 'pages/add_on_page.dart'; // Make sure this path is correct
+import 'package:capstone_proj/pages/myorders.dart';
+
+import 'pages/add_on_page.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -49,10 +53,7 @@ class _CategoryPageState extends State<CategoryPage> {
           backgroundColor: const Color(0xFFD9B56B),
           title: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: Image.asset(
-              'asset/logo.png',
-              height: 45,
-            ),
+            child: Image.asset('asset/logo.png', height: 45),
           ),
           centerTitle: true,
           actions: [
@@ -78,7 +79,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (_) => const CategoryPage()),
-                        (route) => false,
+                    (route) => false,
                   );
                 },
               ),
@@ -108,7 +109,10 @@ class _CategoryPageState extends State<CategoryPage> {
               const Divider(thickness: 1),
               ListTile(
                 leading: const Icon(Icons.logout, color: Colors.red),
-                title: const Text("Logout", style: TextStyle(color: Colors.red)),
+                title: const Text(
+                  "Logout",
+                  style: TextStyle(color: Colors.red),
+                ),
                 onTap: () {
                   showDialog(
                     context: context,
@@ -126,7 +130,9 @@ class _CategoryPageState extends State<CategoryPage> {
                             Navigator.pop(context);
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (_) => const LogoutPage()),
+                              MaterialPageRoute(
+                                builder: (_) => const LogoutPage(),
+                              ),
                             );
                           },
                           child: const Text('Logout'),
@@ -157,16 +163,42 @@ class _CategoryPageState extends State<CategoryPage> {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("Categories", style: TextStyle(fontWeight: FontWeight.bold)),
-                Text("Track Order", style: TextStyle(fontWeight: FontWeight.bold)),
+                GestureDetector(
+                  onTap: () {
+                    // Already on Categories
+                  },
+                  child: const Text(
+                    "Categories",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red, // Highlight current tab
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const MyOrderPage()),
+                    );
+                  },
+                  child: const Text(
+                    "Track Order",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
+
           Container(
             color: const Color(0xFFD9B56B),
             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -185,7 +217,10 @@ class _CategoryPageState extends State<CategoryPage> {
                         ? const Color(0xFFF8E3AD)
                         : Colors.transparent,
                     foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                   ),
                   child: Text(category),
                 );
@@ -240,156 +275,58 @@ class _CategoryPageState extends State<CategoryPage> {
                     ),
                     child: Row(
                       children: [
-                        // Image on the left - smaller size
-                        Expanded(
-                          flex: 2, // Reduced from 3 to 2
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              bottomLeft: Radius.circular(16),
-                            ),
-                            child: item['image'] != null
-                                ? TweenAnimationBuilder<double>(
-                                    tween: Tween(begin: 0, end: 1),
-                                    duration: const Duration(milliseconds: 600),
-                                    builder: (context, value, child) => Opacity(
-                                      opacity: value,
-                                      child: child,
-                                    ),
-                                    child: Image.asset(
-                                      item['image']!,
-                                      fit: BoxFit.cover,
-                                      height: double.infinity,
-                                      width: double.infinity,
-                                      errorBuilder: (context, error, stackTrace) {
-                                        return Container(
-                                          color: Colors.grey[300],
-                                          child: const Icon(
-                                            Icons.fastfood,
-                                            size: 25,
-                                            color: Colors.grey,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  )
-                                : Container(
-                                    color: Colors.grey[300],
-                                    child: const Icon(
-                                      Icons.fastfood,
-                                      size: 25,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
+                        Text(
+                          item['code'] ?? '',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
                           ),
                         ),
-                        // Menu info on the right - more space
-                        Expanded(
-                          flex: 3, // Increased from 2 to 3
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // Title and badge
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        item['code'] ?? '',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Color(0xFF4E342E),
-                                          fontFamily: 'Georgia',
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    if (index == 0)
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFFE9C46A),
-                                          borderRadius: BorderRadius.circular(3),
-                                        ),
-                                        child: const Text(
-                                          '★',
-                                          style: TextStyle(
-                                            color: Color(0xFF4E342E),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 8,
-                                          ),
-                                        ),
-                                      ),
-                                  ],
+                        const SizedBox(height: 5),
+                        Text(
+                          item['description'] ?? '',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          item['price'] ?? '₱0',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4E342E),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 12,
+                            ),
+                          ),
+                          onPressed: () {
+                            if (selectedCategory == 'Bilao') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const AddOnPage(),
                                 ),
-                                // Description
-                                Text(
-                                  item['description'] ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.black87,
-                                    fontFamily: 'Georgia',
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                // Price and button row
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      item['price'] ?? '₱0',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: Color(0xFF6D6D6D),
-                                        fontSize: 14,
-                                        fontFamily: 'Georgia',
-                                      ),
-                                    ),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(0xFF4E342E),
-                                        foregroundColor: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15),
-                                        ),
-                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                        minimumSize: const Size(0, 0),
-                                        elevation: 1,
-                                      ),
-                                      onPressed: () {
-                                        if (selectedCategory == 'Bilao') {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (_) => const AddOnPage()),
-                                          );
-                                        } else {
-                                          showDialog(
-                                            context: context,
-                                            builder: (_) => AlertDialog(
-                                              title: Text(item['code'] ?? ''),
-                                              content: Text(item['description'] ?? ''),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () => Navigator.pop(context),
-                                                  child: const Text('Close'),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      child: const Text(
-                                        "More",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10,
-                                          fontFamily: 'Georgia',
-                                        ),
-                                      ),
+                              );
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text(item['code'] ?? ''),
+                                  content: Text(item['description'] ?? ''),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text('Close'),
                                     ),
                                   ],
                                 ),

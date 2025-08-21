@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               // Logo Image
               Image.asset(
-                'asset/logo.jpg', // Make sure this path matches your pubspec.yaml
+                'asset/logo.jpg',
                 height: 120,
               ),
               const SizedBox(height: 40),

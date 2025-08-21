@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/add_on_card.dart';
-import 'cart_page.dart'; // Make sure the path is correct
+import 'cart_page.dart';
 
 class AddOnPage extends StatefulWidget {
   const AddOnPage({super.key});
